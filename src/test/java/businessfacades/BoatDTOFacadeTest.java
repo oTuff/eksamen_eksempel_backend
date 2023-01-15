@@ -74,6 +74,7 @@ class BoatDTOFacadeTest {
             em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
             em.createNamedQuery("Boat.deleteAllRows").executeUpdate();
             em.createNamedQuery("Harbour.deleteAllRows").executeUpdate();
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
             em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             em.persist(c1);
