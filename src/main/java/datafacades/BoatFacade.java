@@ -42,7 +42,7 @@ public class BoatFacade {
     public List<Owner> getAllOwnersByBoat(Integer boatId) throws API_Exception {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Owner> query = em.createQuery("SELECT o FROM Owner o JOIN Boat b WHERE b.id=:boatId", Owner.class);
+            TypedQuery<Owner> query = em.createQuery("SELECT o FROM Owner o INNER JOIN o.boats b WHERE b.id=:boatId", Owner.class);
             query.setParameter("boatId",boatId);
             return query.getResultList();
         } catch (Exception e) {

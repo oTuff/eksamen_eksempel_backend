@@ -165,16 +165,13 @@ class BoatResourceTest {
     @Test
     void getBoatsByHarbour() {
         //todo: why is it o2 that is the owner when it is suposed to be o1????
+        //fixed by editing query to use inner join
         List<OwnerDTO> ownerDTOList;
         ownerDTOList = given().contentType("application/json")
                 .when().get("/boats/" + b1.getId())
                 .then().extract().body().jsonPath().getList("", OwnerDTO.class);
-        System.out.println(o1.getOwnerName());
-        System.out.println(o2.getOwnerName());
-        System.out.println(b1.getId());
-        System.out.println(bdto1.getId());
 
-        assertThat(ownerDTOList, containsInAnyOrder(new OwnerDTO(o2)));
+        assertThat(ownerDTOList, containsInAnyOrder(new OwnerDTO(o1)));
     }
 
 }
