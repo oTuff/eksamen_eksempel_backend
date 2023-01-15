@@ -8,7 +8,7 @@ PUT http://localhost:8080/api/users/jorg
 Content-Type: application/json
 
 {
-  "userName": "jorg",
+  "userName": "jorg1",
   "userEmail": "jorgemail",
   "userPass": "jorg123",
   "address": {

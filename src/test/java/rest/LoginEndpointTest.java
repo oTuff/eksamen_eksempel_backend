@@ -67,6 +67,10 @@ public class LoginEndpointTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Boat.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Harbour.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();

@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDTOFacadeTest {
-
     private static EntityManagerFactory emf;
     private static UserDTOFacade facade;
 
@@ -48,7 +47,7 @@ public class UserDTOFacadeTest {
         c1 = new CityInfo(2750,"Ballerup");
         c2 = new CityInfo(2800,"Lyngby");
         a1 = new Address("sankt jacobsvej",c1);
-        a2 = new Address("nørgardsvej",c2);
+        a2 = new Address("norgardsvej",c2);
         u1.setUserName("Oscar");
         u1.setUserPass("test");
         u1.setUserEmail("Oscar@gmail.com");
@@ -61,6 +60,9 @@ public class UserDTOFacadeTest {
         u2.setAddress(a2);
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("Owner.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Boat.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Harbour.deleteAllRows").executeUpdate();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
