@@ -28,10 +28,9 @@ public class HarbourFacade {
         return emf.createEntityManager();
     }
 
-    public Harbour createOwner(Harbour harbour) throws API_Exception {
-        return null;
-
-    }
+//    public Harbour createOwner(Harbour harbour) throws API_Exception {
+//        return null;
+//    }
 
     public List<Harbour> getAllHarbours() throws API_Exception {
         EntityManager em = getEntityManager();
