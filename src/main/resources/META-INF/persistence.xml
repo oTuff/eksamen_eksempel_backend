@@ -24,7 +24,7 @@
             <property name="eclipselink.logging.parameters" value="true"/>
             
             <!-- In PRODUCTION the values below, will be overriden by utils.EMF_Creator -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eksamen_eksempel?serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/eksamens_eksempel?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.user" value="dev"/>
             <property name="javax.persistence.jdbc.password" value="ax2"/>
             
