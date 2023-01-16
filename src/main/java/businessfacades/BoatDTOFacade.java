@@ -32,4 +32,12 @@ public class BoatDTOFacade {
         return OwnerDTO.getOwnerDTOs(boatFacade.getAllOwnersByBoat(id));
     }
 
+    public BoatDTO createBoat(BoatDTO boatDTO) throws API_Exception {
+        return new BoatDTO(boatFacade.createBoat(boatDTO.getEntity()));
+    }
+
+    public BoatDTO updateBoat(BoatDTO boatDTO) throws API_Exception{
+        return new BoatDTO(boatFacade.updateBoat(boatDTO.getEntity()));
+    }
+
 }

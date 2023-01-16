@@ -16,6 +16,9 @@ public class HarbourDTO {
     private AddressDTO addressAddress;
     private List<BoatDTO> boats = new ArrayList<>();
 
+    public HarbourDTO() {
+    }
+
     public HarbourDTO(Harbour h){
         if (h.getId() != null) {
             this.id = h.getId();
@@ -47,6 +50,39 @@ public class HarbourDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+//    public Harbour getEntity(){
+//        Harbour harbour = new Harbour();
+//        if(this.id >0){
+//            harbour.setId(this.id);
+//        }
+//        harbour.setHarbourName(this.harbourName);
+//        harbour.setHarbourCapacity(this.harbourCapacity);
+//        harbour.setAddressAddress(this.addressAddress.getEntity());
+//        for(BoatDTO bdto :this.boats) {
+//            harbour.getBoats().add(bdto.getEntity());
+//        }
+//        return harbour;
+//    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "HarbourDTO{" +
+                "id=" + id +
+                ", harbourName='" + harbourName + '\'' +
+                ", harbourCapacity=" + harbourCapacity +
+                ", addressAddress=" + addressAddress +
+                ", boats=" + boats +
+                '}';
     }
 }
 

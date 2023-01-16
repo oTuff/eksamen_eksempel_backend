@@ -1,6 +1,7 @@
 package dtos;
 
 import entities.Boat;
+import entities.Harbour;
 import entities.Owner;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class BoatDTO {
 
     private String boatName;
     private String boatImage;
-    private HarbourDTO harbourHarbour;
+    private HarbourInnerDTO harbour;
     private List<OwnerInnerDTO> owners = new ArrayList<OwnerInnerDTO>();
 
     public BoatDTO(Boat b) {
@@ -25,7 +26,7 @@ public class BoatDTO {
         this.boatMake = b.getBoatMake();
         this.boatName = b.getBoatName();
         this.boatImage = b.getBoatImage();
-//        this.harbourHarbour = new HarbourDTO(b.getHarbourHarbour());
+        this.harbour = new HarbourInnerDTO(b.getHarbourHarbour());
         for (Owner o : b.getOwners()) {
             this.owners.add(new OwnerInnerDTO(o));
         }
@@ -71,12 +72,12 @@ public class BoatDTO {
         this.boatImage = boatImage;
     }
 
-    public HarbourDTO getHarbourHarbour() {
-        return harbourHarbour;
+    public HarbourInnerDTO getHarbour() {
+        return harbour;
     }
 
-    public void setHarbourHarbour(HarbourDTO harbourHarbour) {
-        this.harbourHarbour = harbourHarbour;
+    public void setHarbour(HarbourInnerDTO harbour) {
+        this.harbour = harbour;
     }
 
     public List<OwnerInnerDTO> getOwners() {
@@ -109,12 +110,27 @@ public class BoatDTO {
         return Objects.hash(id);
     }
 
+    public Boat getEntity(){
+        Boat boat = new Boat();
+        if(this.id != null){
+            boat.setId(this.getId());
+        }
+        boat.setBoatBrand(this.boatBrand);
+        boat.setBoatMake(this.boatMake);
+        boat.setBoatName(this.boatName);
+        boat.setBoatImage(this.boatImage);
+        boat.setHarbourHarbour(this.harbour.getEntity());
+        for(OwnerInnerDTO odt : this.owners) {
+            boat.getOwners().add(odt.getEntity());
+        }
+        return boat;
+    }
+
     class OwnerInnerDTO {
         private Integer id;
         private String ownerName;
         private Integer ownerPhone;
         private AddressDTO address;
-        //private List<BoatDTO> boats = new ArrayList<>();
 
         public OwnerInnerDTO(Owner o) {
             if (o.getId() != null) {
@@ -122,7 +138,18 @@ public class BoatDTO {
             }
             this.ownerName = o.getOwnerName();
             this.ownerPhone = o.getOwnerPhone();
-            //this.address = new AddressDTO(o.getAddress());
+            this.address = new AddressDTO(o.getAddress());
+        }
+
+        public Owner getEntity(){
+            Owner owner = new Owner();
+            if(this.id>0) {
+                owner.setId(this.id);
+            }
+            owner.setOwnerPhone(this.ownerPhone);
+            owner.setAddress(this.address.getEntity());
+            owner.setOwnerName(this.ownerName);
+            return owner;
         }
 
         public Integer getId() {
@@ -156,13 +183,89 @@ public class BoatDTO {
         public void setAddress(AddressDTO address) {
             this.address = address;
         }
-
-//        public List<BoatDTO> getBoats() {
-//            return boats;
-//        }
-//
-//        public void setBoats(List<BoatDTO> boats) {
-//            this.boats = boats;
-//        }
     }
+    public class HarbourInnerDTO {
+
+        private Integer id;
+        private String harbourName;
+        private Integer harbourCapacity;
+        private AddressDTO addressAddress;
+
+        public HarbourInnerDTO() {
+        }
+
+        public HarbourInnerDTO(Harbour h){
+            if (h.getId() != null) {
+                this.id = h.getId();
+            }
+            this.harbourName = h.getHarbourName();
+            this.harbourCapacity = h.getHarbourCapacity();
+            this.addressAddress = new AddressDTO(h.getAddressAddress());
+        }
+
+        public List<HarbourInnerDTO> getHarbourDTOs(List<Harbour> allHarbours) {
+            List<HarbourInnerDTO> harbourDTOList = new ArrayList<>();
+            for (Harbour h : allHarbours) {
+                harbourDTOList.add(new HarbourInnerDTO(h));
+            }
+            return harbourDTOList;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof HarbourInnerDTO)) return false;
+            HarbourInnerDTO that = (HarbourInnerDTO) o;
+            return id.equals(that.id);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id);
+        }
+
+//    public Harbour getEntity(){
+//        Harbour harbour = new Harbour();
+//        if(this.id >0){
+//            harbour.setId(this.id);
+//        }
+//        harbour.setHarbourName(this.harbourName);
+//        harbour.setHarbourCapacity(this.harbourCapacity);
+//        harbour.setAddressAddress(this.addressAddress.getEntity());
+//        for(BoatDTO bdto :this.boats) {
+//            harbour.getBoats().add(bdto.getEntity());
+//        }
+//        return harbour;
+//    }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        @Override
+        public String toString() {
+            return "HarbourDTO{" +
+                    "id=" + id +
+                    ", harbourName='" + harbourName + '\'' +
+                    ", harbourCapacity=" + harbourCapacity +
+                    ", addressAddress=" + addressAddress +
+                    '}';
+        }
+
+    public Harbour getEntity(){
+        Harbour harbour = new Harbour();
+        if(this.id >0){
+            harbour.setId(this.id);
+        }
+        harbour.setHarbourName(this.harbourName);
+        harbour.setHarbourCapacity(this.harbourCapacity);
+        harbour.setAddressAddress(this.addressAddress.getEntity());
+        return harbour;
+    }
+    }
+
 }

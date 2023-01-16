@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -103,5 +105,41 @@ class BoatFacadeTest {
         List<Owner> actual = facade.getAllOwnersByBoat(b1.getId());
         int expected = 1;
         assertEquals(expected, actual.size());
+    }
+
+    @Test
+    public void createBoat() throws API_Exception {
+        Set<Owner> ownerSet = new HashSet<>();
+        ownerSet.add(o1);
+        Boat boat = new Boat("saab","test", "dengodebad","img",h1, ownerSet);
+        System.out.println(facade.createBoat(boat));
+        assertNotNull(boat.getId());
+        int actualSize = facade.getAllBoats().size();
+        assertEquals(2,actualSize);
+    }
+
+    @Test
+    public void updateBoat() throws API_Exception{
+        Set<Owner> ownerSet = new HashSet<>();
+        ownerSet.add(o2);
+        Boat boat = b1;
+        b1.setOwners(ownerSet);
+        facade.updateBoat(boat);
+        assertNotNull(boat.getId());
+        int actualSize = facade.getAllBoats().size();
+        assertEquals(1,actualSize);
+        assertEquals(o2,b1.getOwners().toArray()[0]);
+    }
+    @Test
+    public void updateBoatKeepOwner() throws API_Exception{
+        Set<Owner> ownerSet = new HashSet<>();
+        ownerSet.add(o2);
+        ownerSet.add(o1);
+        b1.setOwners(ownerSet);
+        facade.updateBoat(b1);
+        assertNotNull(b1.getId());
+        int actualSize = facade.getAllBoats().size();
+        assertEquals(1,actualSize);
+        assertEquals(2,b1.getOwners().size());
     }
 }

@@ -7,6 +7,7 @@ import dtos.HarbourDTO;
 import dtos.OwnerDTO;
 import entities.*;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -24,6 +25,7 @@ import java.net.URI;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.*;
@@ -175,4 +177,65 @@ class BoatResourceTest {
         assertThat(ownerDTOList, containsInAnyOrder(new OwnerDTO(o1)));
     }
 
-}
+    @Test
+    void creatBoat() {
+        Boat boat = b1;
+        boat.setId(null);
+        BoatDTO bdto = new BoatDTO(boat);
+        String requestBody = GSON.toJson(bdto);
+        System.out.println(requestBody);
+
+//        test:
+//        String requestBody="{\n" +
+//                "  \"boatBrand\": \"saab\",\n" +
+//                "  \"boatMake\": \"test\",\n" +
+//                "  \"boatName\": \"test123\",\n" +
+//                "  \"boatImage\": \"test\",\n" +
+//                "  \"harbour\": {\n" +
+//                "    \"id\": 1,\n" +
+//                "    \"harbourName\": \"test harbour\",\n" +
+//                "    \"harbourCapacity\": 2,\n" +
+//                "    \"addressAddress\": {\n" +
+//                "      \"id\": 1,\n" +
+//                "      \"streetAddress\": \"sankt jacobsvej\",\n" +
+//                "      \"cityInfo\": {\n" +
+//                "        \"zipCode\": 2750,\n" +
+//                "        \"cityName\": \"Ballerup\"\n" +
+//                "      }\n" +
+//                "    }\n" +
+//                "  },\n" +
+//                "  \"owners\": [\n" +
+//                "    {\n" +
+//                "      \"id\": 1,\n" +
+//                "      \"ownerName\": \"Oscar\",\n" +
+//                "      \"ownerPhone\": 12345678,\n" +
+//                "      \"address\": {\n" +
+//                "        \"id\": 1,\n" +
+//                "        \"streetAddress\": \"sankt jacobsvej\",\n" +
+//                "        \"cityInfo\": {\n" +
+//                "          \"zipCode\": 2750,\n" +
+//                "          \"cityName\": \"Ballerup\"\n" +
+//                "        }\n" +
+//                "      }\n" +
+//                "    }\n" +
+//                "  ]\n" +
+//                "}";
+
+        given().header("Content-type", ContentType.JSON)
+                .and().body(requestBody).when().post("/boats")
+                .then().assertThat().statusCode(200)
+                .body("boatName", equalTo("test123"));
+    }
+
+    @Test
+    void updateBoat() {
+        bdto1.setBoatName("updated");
+        String requestBody = GSON.toJson(bdto1);
+        System.out.println(requestBody);
+        given().header("Content-type", ContentType.JSON)
+                .and().body(requestBody).when().put("/boats")
+                .then().assertThat().statusCode(200)
+                .body("boatName", equalTo("updated"));
+    }
+
+    }

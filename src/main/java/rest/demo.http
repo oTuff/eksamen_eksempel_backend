@@ -38,6 +38,47 @@ Content-Type: application/json
   "userEmail": "chris@gmail.com",
   "userPass": "test123"
 }
+###
+GET http://localhost:8080/eksamen_eksempel_war_exploded/api/boats
+
+###
+POST http://localhost:8080/eksamen_eksempel_war_exploded/api/boats
+Content-Type: application/json
+
+{
+  "boatBrand": "Saab2",
+  "boatMake": "2000",
+  "boatName": "testbaad",
+  "boatImage": "img-not-found",
+  "harbour": {
+    "id": 1,
+    "harbourName": "test",
+    "harbourCapacity": 20,
+    "addressAddress": {
+      "id": 1,
+      "streetAddress": "test",
+      "cityInfo": {
+        "zipCode": 2800,
+        "cityName": "Kongens Lyngby"
+      }
+    }
+  },
+  "owners": [
+    {
+      "id": 1,
+      "ownerName": "oscar",
+      "ownerPhone": 12345678,
+      "address": {
+        "id": 1,
+        "streetAddress": "test",
+        "cityInfo": {
+          "zipCode": 2800,
+          "cityName": "Kongens Lyngby"
+        }
+      }
+    }
+  ]
+}
 
 ###
 DELETE http://localhost:8080/api/users/remove/jon/2
@@ -101,41 +142,41 @@ POST http://localhost:8080/api/training/sendReminder
 Content-Type: application/json
 
 {
-    "id": 3,
-    "title": "test",
-    "time": "test",
-    "date": "test",
-    "fullAddress": "test",
-    "category": {
-      "id": 1,
-      "categoryName": "Dans",
-      "trainingSessions": []
-    },
-    "maxParticipants": 2,
-    "users": [
-      {
-        "userName": "oscar",
-        "userEmail": "oscartuff@live.dk",
-        "userPass": "$2a$10$92bIgiWKJJt6ZeGeVT.lPu4bVje2JtvQWB0x82Ri7G/nuGO7xKxWq",
-        "address": {
-          "id": 4,
-          "streetAddress": "test",
-          "cityInfo": {
-            "zipCode": 2800,
-            "cityName": "Kongens Lyngby"
-          }
-        },
-        "trainingSessions": [
-          "test",
-          "test",
-          "test",
-          "test",
-          "1",
-          "2"
-        ],
-        "roleList": [
-          "user"
-        ]
-      }
-    ]
-  }
+  "id": 3,
+  "title": "test",
+  "time": "test",
+  "date": "test",
+  "fullAddress": "test",
+  "category": {
+    "id": 1,
+    "categoryName": "Dans",
+    "trainingSessions": []
+  },
+  "maxParticipants": 2,
+  "users": [
+    {
+      "userName": "oscar",
+      "userEmail": "oscartuff@live.dk",
+      "userPass": "$2a$10$92bIgiWKJJt6ZeGeVT.lPu4bVje2JtvQWB0x82Ri7G/nuGO7xKxWq",
+      "address": {
+        "id": 4,
+        "streetAddress": "test",
+        "cityInfo": {
+          "zipCode": 2800,
+          "cityName": "Kongens Lyngby"
+        }
+      },
+      "trainingSessions": [
+        "test",
+        "test",
+        "test",
+        "test",
+        "1",
+        "2"
+      ],
+      "roleList": [
+        "user"
+      ]
+    }
+  ]
+}

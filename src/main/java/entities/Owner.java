@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,13 @@ public class Owner {
     private Set<Boat> boats = new LinkedHashSet<>();
 
     public Owner() {
+    }
+
+    public Owner(String ownerName, Integer ownerPhone, Address address, Set<Boat> boats) {
+        this.ownerName = ownerName;
+        this.ownerPhone = ownerPhone;
+        this.address = address;
+        this.boats = boats;
     }
 
     public Integer getId() {
@@ -78,4 +86,27 @@ public class Owner {
         this.boats = boats;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Owner)) return false;
+        Owner owner = (Owner) o;
+        return getId().equals(owner.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "id=" + id +
+                ", ownerName='" + ownerName + '\'' +
+                ", ownerPhone=" + ownerPhone +
+                ", address=" + address +
+                ", boats=" + boats +
+                '}';
+    }
 }

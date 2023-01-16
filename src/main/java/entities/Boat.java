@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -43,6 +44,15 @@ public class Boat {
     private Set<Owner> owners = new LinkedHashSet<>();
 
     public Boat() {
+    }
+
+    public Boat(String boatBrand, String boatMake, String boatName, String boatImage, Harbour harbourHarbour, Set<Owner> owners) {
+        this.boatBrand = boatBrand;
+        this.boatMake = boatMake;
+        this.boatName = boatName;
+        this.boatImage = boatImage;
+        this.harbourHarbour = harbourHarbour;
+        this.owners = owners;
     }
 
     public Integer getId() {
@@ -105,4 +115,29 @@ public class Boat {
         this.owners.add(owner);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Boat)) return false;
+        Boat boat = (Boat) o;
+        return getId().equals(boat.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Boat{" +
+                "id=" + id +
+                ", boatBrand='" + boatBrand + '\'' +
+                ", boatMake='" + boatMake + '\'' +
+                ", boatName='" + boatName + '\'' +
+                ", boatImage='" + boatImage + '\'' +
+                ", harbourHarbour=" + harbourHarbour +
+                ", owners=" + owners +
+                '}';
+    }
 }

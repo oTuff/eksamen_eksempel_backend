@@ -12,7 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import java.text.ParseException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -108,8 +110,29 @@ class BoatDTOFacadeTest {
     @Test
     void getAllOwnersByBoat() throws API_Exception {
         List<OwnerDTO> actual = facade.getAllOwnersByBoat(bdto1.getId());
-        int expected =1;
+        int expected = 1;
         assertEquals(expected, actual.size());
     }
 
+    @Test
+    void createBoatDTOTest() throws API_Exception {
+        BoatDTO boatDTO = new BoatDTO(b1);
+        boatDTO.setId(null);
+        facade.createBoat(boatDTO);
+        assertNotNull(boatDTO.getBoatName());
+        int actualSize = facade.getAllBoats().size();
+        assertEquals(2, actualSize);
+    }
+
+    @Test
+    void updateBoatDTOTest() throws API_Exception {
+        Set<Owner> ownerSet = new HashSet<>();
+        ownerSet.add(o2);
+        b1.setOwners(ownerSet);
+        BoatDTO bdto = new BoatDTO(b1);
+        facade.updateBoat(bdto);
+        assertNotNull(bdto.getId());
+        int actualSize = facade.getAllBoats().size();
+        assertEquals(1, actualSize);
+    }
 }
